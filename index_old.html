@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обменник EXMO кодов - Покупка кодов биржи EXMO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <video autoplay muted loop playsinline class="video-background">
+        <source src="19264a464315513c06c2dc242649e340.mp4" type="video/mp4">
+    </video>
+
+    <header>
+        <div class="user-bar">
+            <div class="container">
+                <div class="user-bar-content">
+                    <div class="language-selector">
+                        <span class="active">РУ</span> / <span>EN</span>
+                    </div>
+                    <div class="header-contacts-top">
+                        <span>📱 Поддержка: <a href="https://t.me/yourusername" target="_blank">@yourusername</a></span>
+                        <span>📧 Email: support@example.com</span>
+                    </div>
+                    <div class="auth-buttons">
+                        <button class="btn-login" onclick="toggleAuthForm()">Войти</button>
+                        <button class="btn-register">Регистрация</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <h1>EXMO ОБМЕННИК</h1>
+                    </div>
+                    <nav>
+                        <a href="#exchange">Обмен</a>
+                        <a href="#reviews">Отзывы</a>
+                        <a href="#info">О сервисе</a>
+                        <a href="#contacts">Контакты</a>
+                    </nav>
+                    <div class="work-time">
+                        <span>⏰ Работаем: 10:00 - 22:00 МСК</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <aside class="auth-panel" id="authPanel">
+        <button class="close-auth" onclick="toggleAuthForm()">✕</button>
+        <h3>Авторизация</h3>
+        <form class="auth-form">
+            <div class="form-group-auth">
+                <input type="text" placeholder="Логин" required>
+            </div>
+            <div class="form-group-auth">
+                <input type="password" placeholder="Пароль" required>
+            </div>
+            <button type="submit" class="btn-submit-auth">Войти</button>
+            <div class="auth-links">
+                <a href="#register">Регистрация</a>
+                <a href="#forgot">Забыли пароль?</a>
+            </div>
+        </form>
+    </aside>
+
+    <main>
+        <section id="exchange" class="exchange-section">
+            <div class="container">
+                <h2 class="main-title">Продажа EXMO кодов за рубли</h2>
+
+                <div class="notice-warning">
+                    ⚠️ Обмен происходит вручную. Среднее время обработки заявки: 10-30 минут.
+                </div>
+
+                <form id="exchangeForm" class="exchange-form">
+                    <div class="form-group">
+                        <label for="exmoCode">EXMO код *</label>
+                        <input type="text" id="exmoCode" name="exmoCode" required
+                               placeholder="Вставьте ваш EXMO код">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount">Сумма в рублях *</label>
+                        <input type="number" id="amount" name="amount" required
+                               placeholder="Укажите сумму в EXMO коде" min="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Номер телефона (СБП) *</label>
+                        <input type="tel" id="phone" name="phone" required
+                               placeholder="+7 (___) ___-__-__">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bank">Банк *</label>
+                        <select id="bank" name="bank" required>
+                            <option value="">Выберите банк</option>
+                            <option value="Сбербанк">Сбербанк</option>
+                            <option value="Тинькофф">Тинькофф</option>
+                            <option value="ВТБ">ВТБ</option>
+                            <option value="Альфа-Банк">Альфа-Банк</option>
+                            <option value="Райффайзен">Райффайзен</option>
+                            <option value="Газпромбанк">Газпромбанк</option>
+                            <option value="Открытие">Открытие</option>
+                            <option value="Росбанк">Росбанк</option>
+                            <option value="Другой">Другой</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exmoId">ID на бирже EXMO *</label>
+                        <input type="text" id="exmoId" name="exmoId" required
+                               placeholder="Ваш ID на бирже EXMO">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="screenshot">Скриншот личного кабинета EXMO *</label>
+                        <input type="file" id="screenshot" name="screenshot" required
+                               accept="image/*">
+                        <small>Загрузите скриншот с видимым EXMO кодом и вашим ID</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email (опционально)</label>
+                        <input type="email" id="email" name="email"
+                               placeholder="Ваш email для связи">
+                    </div>
+
+                    <button type="submit" class="btn-submit">Создать заявку</button>
+                </form>
+
+                <div id="successMessage" class="message success" style="display:none;">
+                    ✓ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.
+                </div>
+                <div id="errorMessage" class="message error" style="display:none;">
+                    ✗ Ошибка отправки. Попробуйте еще раз или свяжитесь с нами в Telegram.
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews" class="reviews-section">
+            <div class="container">
+                <h2>Отзывы клиентов</h2>
+                <div class="reviews-container">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span class="review-author">Алексей М.</span>
+                            <span class="review-date">05.01.2026</span>
+                        </div>
+                        <div class="review-rating">★★★★★</div>
+                        <p class="review-text">Быстро и надежно! Деньги пришли через 10 минут после проверки кода.</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span class="review-author">Мария К.</span>
+                            <span class="review-date">03.01.2026</span>
+                        </div>
+                        <div class="review-rating">★★★★★</div>
+                        <p class="review-text">Отличный сервис, курс 1:1 без комиссий. Рекомендую!</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span class="review-author">Дмитрий П.</span>
+                            <span class="review-date">28.12.2025</span>
+                        </div>
+                        <div class="review-rating">★★★★★</div>
+                        <p class="review-text">Уже третий раз обмениваю коды здесь. Всё честно и прозрачно.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="info" class="info-section">
+            <div class="container">
+                <h2>Как это работает?</h2>
+                <div class="info-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Создайте EXMO код</h3>
+                        <p>Зайдите в свой аккаунт на бирже EXMO и создайте код на нужную сумму</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Заполните форму</h3>
+                        <p>Укажите EXMO код, сумму, данные для СБП и загрузите скриншот</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Получите деньги</h3>
+                        <p>После проверки кода мы переведем деньги на ваш счет через СБП</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacts">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p>📱 Telegram: <a href="https://t.me/yourusername" target="_blank">@yourusername</a></p>
+                    <p>📧 Email: support@example.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Режим работы</h3>
+                    <p>Ежедневно: 10:00 - 22:00 (МСК)</p>
+                    <p>Обработка заявок: 10-30 минут</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Информация</h3>
+                    <p>Курс обмена: 1:1</p>
+                    <p>Комиссия: 0%</p>
+                    <p>Способ оплаты: СБП</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EXMO Обменник. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

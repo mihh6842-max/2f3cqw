@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:bankomat001.com)",
+      "Bash(dir \"C:\\\\Users\\\\admin\\\\Desktop\\\\ВЕБПРИЛОЖЕНИЕ ПРОДАЖАБИТКОВ\" /B)",
+      "Bash(php:*)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+# Защита config.php от прямого доступа
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Защита от просмотра содержимого директорий
+Options -Indexes
+
+# Ограничение размера загружаемых файлов (5MB)
+php_value upload_max_filesize 5M
+php_value post_max_size 6M
+
+# Включение отображения ошибок (для разработки, отключить на продакшене)
+php_flag display_errors Off
+php_flag log_errors On
+
+# Защита от XSS
+<IfModule mod_headers.c>
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# Кэширование статических файлов
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+</IfModule>

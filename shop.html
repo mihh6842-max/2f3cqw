@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин EXMO кодов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <video autoplay muted loop playsinline class="video-background">
+        <source src="19264a464315513c06c2dc242649e340.mp4" type="video/mp4">
+    </video>
+
+    <header>
+        <div class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <h1>EXMO МАРКЕТПЛЕЙС</h1>
+                    </div>
+                    <nav>
+                        <a href="shop.html">Магазин</a>
+                        <a href="#cart" onclick="toggleCart()">🛒 Корзина (<span id="cartCount">0</span>)</a>
+                    </nav>
+                    <div class="user-menu">
+                        <span class="user-email" id="userEmail">👤 </span>
+                        <a href="sell.html" class="btn-sell">Продать</a>
+                        <a href="#" onclick="logout()" class="btn-logout">Выйти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="shop-section">
+            <div class="container">
+                <h2 class="main-title">Доступные EXMO коды</h2>
+
+                <div class="products-grid" id="productsGrid">
+                    <!-- Товары загрузятся через JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <aside class="cart-panel" id="cartPanel">
+        <button class="close-auth" onclick="toggleCart()">✕</button>
+        <h3>Корзина</h3>
+        <div id="cartItems"></div>
+        <div class="cart-total">
+            <strong>Итого: <span id="cartTotal">0</span> ₽</strong>
+        </div>
+        <button class="btn-submit-auth" onclick="checkout()">Оформить заказ</button>
+    </aside>
+
+    <script src="shop.js"></script>
+    <script>
+        // Проверка авторизации
+        const currentUser = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
+        if (!currentUser) {
+            window.location.href = 'login.html';
+        }
+
+        // Отображаем email пользователя
+        document.getElementById('userEmail').textContent = '👤 ' + currentUser.email;
+
+        // Создаем тестовые товары если их нет
+        if (!localStorage.getItem('products') || JSON.parse(localStorage.getItem('products')).length === 0) {
+            const testProducts = [
+                {
+                    id: 1,
+                    sellerId: 1,
+                    title: 'EXMO код 5000₽',
+                    description: 'Код биржи EXMO на сумму 5000 рублей. Активируется моментально.',
+                    exmoCode: 'EX-DEMO-5000-ABCD1234',
+                    price: 5000,
+                    paymentPhone: '+7 (900) 123-45-67',
+                    paymentBank: 'Сбербанк',
+                    status: 'active',
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: 2,
+                    sellerId: 1,
+                    title: 'EXMO код 10000₽',
+                    description: 'Код биржи EXMO на сумму 10000 рублей. Быстрый вывод без комиссии.',
+                    exmoCode: 'EX-DEMO-10000-EFGH5678',
+                    price: 10000,
+                    paymentPhone: '+7 (900) 123-45-67',
+                    paymentBank: 'Тинькофф',
+                    status: 'active',
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: 3,
+                    sellerId: 1,
+                    title: 'EXMO код 3000₽',
+                    description: 'Промо код на 3000 рублей. Отличная цена!',
+                    exmoCode: 'EX-DEMO-3000-IJKL9012',
+                    price: 3000,
+                    paymentPhone: '+7 (900) 123-45-67',
+                    paymentBank: 'ВТБ',
+                    status: 'active',
+                    createdAt: new Date().toISOString()
+                }
+            ];
+            localStorage.setItem('products', JSON.stringify(testProducts));
+        }
+
+        // Выход
+        function logout() {
+            sessionStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+
+        // Загружаем товары
+        function loadProducts() {
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+            const productsGrid = document.getElementById('productsGrid');
+
+            if (products.length === 0) {
+                productsGrid.innerHTML = `
+                    <div class="no-products">
+                        <p>Пока нет доступных товаров</p>
+                        <a href="sell.html" class="btn-submit">Продать первый ключ</a>
+                    </div>
+                `;
+                return;
+            }
+
+            // Фильтруем только активные товары
+            const activeProducts = products.filter(p => p.status === 'active');
+
+            if (activeProducts.length === 0) {
+                productsGrid.innerHTML = `
+                    <div class="no-products">
+                        <p>Все товары проданы</p>
+                        <a href="sell.html" class="btn-submit">Добавить товар</a>
+                    </div>
+                `;
+                return;
+            }
+
+            productsGrid.innerHTML = activeProducts.map(product => {
+                const seller = JSON.parse(localStorage.getItem('users') || '[]').find(u => u.id === product.sellerId);
+                const sellerPhone = seller ? seller.phone : 'Неизвестно';
+
+                return `
+                    <div class="product-card">
+                        <div class="product-header">
+                            <h3>${product.title}</h3>
+                            <span class="product-price">${Number(product.price).toLocaleString('ru-RU')} ₽</span>
+                        </div>
+                        <p class="product-description">${product.description || 'Без описания'}</p>
+                        <div class="product-info">
+                            <small>Продавец: ${sellerPhone}</small>
+                            <small>Добавлено: ${new Date(product.createdAt).toLocaleString('ru-RU')}</small>
+                        </div>
+                        <button class="btn-add-cart" onclick="addToCart(${product.id}, '${product.title.replace(/'/g, "\\'")}', ${product.price})">
+                            Добавить в корзину
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        loadProducts();
+    </script>
+</body>
+</html>
