@@ -149,21 +149,21 @@ header {
     justify-content: center;
     gap: 0;
     margin: 30px auto 40px;
-    max-width: 400px;
+    max-width: 280px;
     background: rgba(255, 255, 255, 0.05);
-    padding: 6px;
+    padding: 5px;
     border-radius: 50px;
     backdrop-filter: blur(10px);
 }
 
 .mode-btn {
     flex: 1;
-    padding: 14px 30px;
+    padding: 16px 24px;
     border: none;
     background: transparent;
     color: rgb(180, 180, 180);
     font-family: 'Rubik', sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     border-radius: 50px;
     cursor: pointer;
