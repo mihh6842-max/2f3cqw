@@ -60,6 +60,11 @@
                     <p class="exchange-conditions">Обменивайте EXMO коды на рубли по курсу 1:1 без комиссии. Быстрая оплата через СБП. Минимальная сумма обмена — 1 000 ₽, максимальная — 100 000 ₽. Время обработки заявки: 10-30 минут.</p>
                 </div>
 
+                <div class="exchange-mode-switcher">
+                    <button type="button" class="mode-btn active" data-mode="sell">Продаёте</button>
+                    <button type="button" class="mode-btn" data-mode="buy">Получаете</button>
+                </div>
+
                 <form id="exchangeForm" class="main-exchange-form">
                     <div class="exchange-columns">
                         <div class="exchange-column">
@@ -84,6 +89,30 @@
                                 <input type="file" id="screenshot" name="screenshot" required
                                        accept="image/*">
                                 <small>Загрузите скриншот с видимым EXMO кодом</small>
+                            </div>
+                        </div>
+
+                        <div class="exchange-column">
+                            <h3>Получение</h3>
+
+                            <div class="form-group">
+                                <label>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="vertical-align: middle; margin-right: 8px;">
+                                        <rect x="2" y="4" width="20" height="16" rx="2" fill="#4CAF50"/>
+                                        <path d="M7 12h10M12 7v10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    СБП
+                                </label>
+                                <div style="padding: 12px; background: rgba(76, 175, 80, 0.1); border-radius: 8px; border: 1px solid rgba(76, 175, 80, 0.3); color: #4CAF50; font-weight: 500;">
+                                    Система быстрых платежей
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Сумма в RUB</label>
+                                <input type="number" id="receiveAmount" name="receiveAmount" readonly
+                                       placeholder="0" style="background: rgba(255,255,255,0.05); cursor: not-allowed;">
+                                <small>min: 1 000 RUB | max: 100 000 RUB</small>
                             </div>
 
                             <div class="form-group">
@@ -112,30 +141,6 @@
                                     <option value="Росбанк">Росбанк</option>
                                     <option value="Другой">Другой</option>
                                 </select>
-                            </div>
-                        </div>
-
-                        <div class="exchange-column">
-                            <h3>Получение</h3>
-
-                            <div class="form-group">
-                                <label>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="vertical-align: middle; margin-right: 8px;">
-                                        <rect x="2" y="4" width="20" height="16" rx="2" fill="#4CAF50"/>
-                                        <path d="M7 12h10M12 7v10" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
-                                    СБП
-                                </label>
-                                <div style="padding: 12px; background: rgba(76, 175, 80, 0.1); border-radius: 8px; border: 1px solid rgba(76, 175, 80, 0.3); color: #4CAF50; font-weight: 500;">
-                                    Система быстрых платежей
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Сумма в RUB</label>
-                                <input type="number" id="receiveAmount" name="receiveAmount" readonly
-                                       placeholder="0" style="background: rgba(255,255,255,0.05); cursor: not-allowed;">
-                                <small>min: 1 000 RUB | max: 100 000 RUB</small>
                             </div>
                         </div>
                     </div>
@@ -249,6 +254,19 @@
     </footer>
 
     <script>
+        // Переключатель режимов
+        const modeBtns = document.querySelectorAll('.mode-btn');
+        modeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                modeBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const mode = this.dataset.mode;
+                // Здесь можно добавить логику переключения режимов
+                console.log('Выбран режим:', mode);
+            });
+        });
+
         // Автоматический расчёт суммы получения (курс 1:1)
         const giveAmountInput = document.getElementById('giveAmount');
         const receiveAmountInput = document.getElementById('receiveAmount');

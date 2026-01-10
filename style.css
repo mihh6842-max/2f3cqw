@@ -144,6 +144,45 @@ header {
     color: rgb(200, 200, 200);
 }
 
+.exchange-mode-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin: 30px auto 40px;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px;
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+}
+
+.mode-btn {
+    flex: 1;
+    padding: 14px 30px;
+    border: none;
+    background: transparent;
+    color: rgb(180, 180, 180);
+    font-family: 'Rubik', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mode-btn.active {
+    background: linear-gradient(135deg, #FF6B00, #FF8C00, #FFA500, #FFD700);
+    background-size: 300% 300%;
+    animation: gradientShift 3s ease infinite;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
+}
+
+.mode-btn:not(.active):hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgb(220, 220, 220);
+}
+
 .main-exchange-form {
     max-width: 1000px;
     margin: 0 auto;
