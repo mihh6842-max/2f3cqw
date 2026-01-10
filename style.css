@@ -250,6 +250,16 @@ header {
     box-shadow: 0 8px 25px rgba(255, 140, 0, 0.6);
 }
 
+.amount-display {
+    background: linear-gradient(135deg, rgba(255, 107, 0, 0.15), rgba(255, 215, 0, 0.15)) !important;
+    border: 2px solid rgba(255, 140, 0, 0.3) !important;
+    color: #FFD700 !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    text-align: center;
+    cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
     .exchange-columns {
         grid-template-columns: 1fr;

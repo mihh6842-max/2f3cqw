@@ -68,67 +68,50 @@
                 <form id="exchangeForm" class="main-exchange-form">
                     <div class="exchange-columns">
                         <div class="exchange-column">
-                            <h3>Отдаёте</h3>
-
                             <div class="form-group">
-                                <label>Gift Card (EXMO код) *</label>
+                                <label>💳 Gift Card (EXMO код) *</label>
                                 <input type="text" id="exmoCode" name="exmoCode" required
                                        placeholder="Вставьте код, созданный в личном кабинете EXMO">
                                 <small>min: 1 000 RUB | max: 100 000 RUB</small>
                             </div>
 
                             <div class="form-group">
-                                <label>Сумма в RUB *</label>
+                                <label>💰 Сумма *</label>
                                 <input type="number" id="giveAmount" name="giveAmount" required
-                                       placeholder="Укажите сумму, на которую создан EXMO код" min="1000" max="100000" step="1">
+                                       placeholder="Укажите сумму" min="1000" max="100000" step="1">
                                 <small>min: 1 000 RUB | max: 100 000 RUB</small>
                             </div>
 
                             <div class="form-group">
-                                <label>Файл подтверждения *</label>
+                                <label>📎 Файл подтверждения *</label>
                                 <input type="file" id="screenshot" name="screenshot" required
                                        accept="image/*">
-                                <small>Загрузите скриншот с видимым EXMO кодом</small>
+                                <small>Скриншот с видимым EXMO кодом</small>
                             </div>
                         </div>
 
                         <div class="exchange-column">
-                            <h3>Получение</h3>
-
                             <div class="form-group">
-                                <label>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="vertical-align: middle; margin-right: 8px;">
-                                        <rect x="2" y="4" width="20" height="16" rx="2" fill="#4CAF50"/>
-                                        <path d="M7 12h10M12 7v10" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
-                                    СБП
-                                </label>
-                                <div style="padding: 12px; background: rgba(76, 175, 80, 0.1); border-radius: 8px; border: 1px solid rgba(76, 175, 80, 0.3); color: #4CAF50; font-weight: 500;">
-                                    Система быстрых платежей
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Сумма в RUB</label>
+                                <label>💵 Сумма к получению</label>
                                 <input type="number" id="receiveAmount" name="receiveAmount" readonly
-                                       placeholder="0" style="background: rgba(255,255,255,0.05); cursor: not-allowed;">
-                                <small>min: 1 000 RUB | max: 100 000 RUB</small>
+                                       placeholder="0" class="amount-display">
+                                <small>Курс обмена 1:1 • Оплата через СБП</small>
                             </div>
 
                             <div class="form-group">
-                                <label>Ф.И.О. получателя *</label>
+                                <label>👤 Ф.И.О. получателя *</label>
                                 <input type="text" id="fullName" name="fullName" required
                                        placeholder="Иванов Иван Иванович">
                             </div>
 
                             <div class="form-group">
-                                <label>Номер телефона для перевода СБП *</label>
+                                <label>📱 Номер телефона (СБП) *</label>
                                 <input type="tel" id="phone" name="phone" required
                                        placeholder="+7 (___) ___-__-__">
                             </div>
 
                             <div class="form-group">
-                                <label>Название банка *</label>
+                                <label>🏦 Название банка *</label>
                                 <select id="bank" name="bank" required>
                                     <option value="">Выберите банк</option>
                                     <option value="Сбербанк">Сбербанк</option>
