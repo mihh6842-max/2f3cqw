@@ -125,6 +125,112 @@ header {
     font-size: 14px;
 }
 
+.hero-section {
+    padding: 120px 0;
+    position: relative;
+    z-index: 1;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-content h2 {
+    font-size: 48px;
+    color: rgb(243, 243, 243);
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.hero-description {
+    font-size: 20px;
+    color: rgb(200, 200, 200);
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.hero-features {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.feature-icon {
+    font-size: 40px;
+}
+
+.feature span:last-child {
+    color: rgb(220, 220, 220);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.choice-title {
+    font-size: 28px;
+    color: rgb(243, 243, 243);
+    margin: 40px 0 30px;
+    font-weight: 500;
+}
+
+.choice-buttons {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+.choice-card {
+    background: rgba(18, 18, 18, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 40px 30px;
+    border-radius: 20px;
+    width: 280px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    border: 2px solid rgba(255, 255, 255, 0.05);
+}
+
+.choice-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 140, 0, 0.5);
+    box-shadow: 0 8px 30px rgba(255, 140, 0, 0.3);
+}
+
+.choice-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.choice-card h4 {
+    font-size: 22px;
+    color: rgb(243, 243, 243);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.choice-card p {
+    font-size: 16px;
+    color: rgb(180, 180, 180);
+    line-height: 1.5;
+}
+
 .exchange-main-section {
     padding: 60px 0;
     position: relative;
@@ -145,62 +251,6 @@ header {
 .exchange-conditions {
     font-size: 16px;
     color: rgb(200, 200, 200);
-}
-
-/* FIXED: Centered switcher wrapper */
-.switcher-wrapper {
-    text-align: center;
-    margin: 30px 0 40px;
-    width: 100%;
-    position: relative;
-    z-index: 10;
-}
-
-/* FIXED: Switcher with fixed width - no stretching */
-.exchange-mode-switcher {
-    display: inline-flex;
-    justify-content: center;
-    gap: 0;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 6px;
-    border-radius: 50px;
-    backdrop-filter: blur(10px);
-    width: 340px; /* FIXED: Fixed width prevents stretching */
-    position: relative;
-    z-index: 10;
-}
-
-/* FIXED: Fixed width buttons prevent expansion */
-.mode-btn {
-    padding: 16px 0;
-    width: 164px; /* FIXED: Equal fixed widths for both buttons */
-    border: none;
-    background: transparent;
-    color: rgb(180, 180, 180);
-    font-family: 'Rubik', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-    position: relative;
-    z-index: 10;
-    pointer-events: auto;
-}
-
-.mode-btn.active {
-    background: linear-gradient(135deg, #FF6B00, #FF8C00, #FFA500, #FFD700);
-    background-size: 300% 300%;
-    animation: gradientShift 3s ease infinite;
-    color: rgb(255, 255, 255);
-    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
-}
-
-.mode-btn:not(.active):hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: rgb(220, 220, 220);
 }
 
 /* FIXED: Narrow and tall form */
@@ -289,16 +339,6 @@ header {
     .main-exchange-form {
         padding: 25px 20px;
         max-width: 100%;
-    }
-    
-    .exchange-mode-switcher {
-        width: 300px;
-    }
-    
-    .mode-btn {
-        width: 144px;
-        font-size: 15px;
-        padding: 14px 0;
     }
 }
 
