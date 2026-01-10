@@ -60,9 +60,11 @@
                     <p class="exchange-conditions">Обменивайте EXMO коды на рубли по курсу 1:1 без комиссии. Быстрая оплата через СБП. Минимальная сумма обмена — 1 000 ₽, максимальная — 100 000 ₽. Время обработки заявки: 10-30 минут.</p>
                 </div>
 
-                <div class="exchange-mode-switcher">
-                    <button type="button" class="mode-btn active" data-mode="sell">Продаёте</button>
-                    <button type="button" class="mode-btn" data-mode="buy">Получаете</button>
+                <div class="switcher-wrapper">
+                    <div class="exchange-mode-switcher">
+                        <button type="button" class="mode-btn active" data-mode="sell">Продаёте</button>
+                        <button type="button" class="mode-btn" data-mode="buy">Получаете</button>
+                    </div>
                 </div>
 
                 <form id="sellForm" class="main-exchange-form">
@@ -203,59 +205,93 @@
     </footer>
 
     <script>
+        alert('СКРИПТ ЗАГРУЖЕН');
+        console.log('=== SCRIPT LOADED ===');
+
         // Переключатель режимов
         const modeBtns = document.querySelectorAll('.mode-btn');
+        console.log('Found buttons:', modeBtns.length);
+        alert('Найдено кнопок: ' + modeBtns.length);
+
         let currentMode = 'sell';
 
-        modeBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
+        modeBtns.forEach((btn, index) => {
+            console.log(`Button ${index}:`, btn.dataset.mode, btn.textContent);
+            btn.addEventListener('click', function(e) {
+                console.log('=== BUTTON CLICKED ===');
+                console.log('Event:', e);
+                console.log('Button clicked:', this.dataset.mode);
+                console.log('Current mode before:', currentMode);
+
                 modeBtns.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
 
                 currentMode = this.dataset.mode;
+                console.log('New mode:', currentMode);
                 switchMode(currentMode);
             });
         });
 
         function switchMode(mode) {
-            const exchangeColumns = document.querySelector('.exchange-columns');
+            console.log('=== SWITCH MODE CALLED ===');
+            console.log('Mode:', mode);
 
-            // Переключаем одноколоночный/двухколоночный режим
+            const columns = document.querySelectorAll('.exchange-column');
+            console.log('Columns found:', columns.length);
+
+            const receiveGroup = document.querySelector('#receiveAmount').closest('.form-group');
+            console.log('Receive group:', receiveGroup);
+
+            // В режиме buy перемещаем поле получения в первую колонку
             if (mode === 'buy') {
-                exchangeColumns.classList.add('single-column');
+                console.log('MODE: BUY - hiding second column');
+                columns[0].appendChild(receiveGroup);
+                columns[1].style.display = 'none';
             } else {
-                exchangeColumns.classList.remove('single-column');
+                console.log('MODE: SELL - showing both columns');
+                columns[1].insertBefore(receiveGroup, columns[1].firstChild);
+                columns[1].style.display = 'flex';
+                columns[1].style.flexDirection = 'column';
             }
 
             // Скрываем/показываем поля в зависимости от режима
-            document.querySelectorAll('[data-mode]').forEach(field => {
+            const fieldsWithMode = document.querySelectorAll('[data-mode]');
+            console.log('Fields with data-mode:', fieldsWithMode.length);
+
+            fieldsWithMode.forEach(field => {
+                console.log('Field mode:', field.dataset.mode, 'Current mode:', mode);
                 if (field.dataset.mode === mode) {
-                    field.style.display = 'block';
-                    // Добавляем required для видимых полей
+                    console.log('Showing field');
+                    field.style.display = 'flex';
+                    field.style.flexDirection = 'column';
                     const input = field.querySelector('input, select');
                     if (input && !input.readOnly) input.required = true;
                 } else {
+                    console.log('Hiding field');
                     field.style.display = 'none';
-                    // Убираем required для скрытых полей
                     const input = field.querySelector('input, select');
                     if (input) input.required = false;
                 }
             });
 
             // Меняем текст лейблов
+            console.log('Changing labels...');
             const amountLabel = document.getElementById('amountLabel');
             const receiveLabel = document.getElementById('receiveLabel');
             const receiveSmall = document.getElementById('receiveSmall');
 
             if (mode === 'buy') {
+                console.log('Setting BUY labels');
                 amountLabel.textContent = '💰 Сумма оплаты *';
                 receiveLabel.textContent = '💳 EXMO код на сумму';
                 receiveSmall.textContent = 'Курс обмена 1:1 • Получите EXMO код';
             } else {
+                console.log('Setting SELL labels');
                 amountLabel.textContent = '💰 Сумма *';
                 receiveLabel.textContent = '💵 Сумма к получению';
                 receiveSmall.textContent = 'Курс обмена 1:1 • Оплата через СБП';
             }
+            console.log('=== SWITCH MODE COMPLETED ===');
         }
 
         // Автоматический расчёт суммы получения (курс 1:1)
