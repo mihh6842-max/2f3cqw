@@ -79,6 +79,149 @@ header {
     gap: 15px;
 }
 
+.auth-buttons-header {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-login-header {
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 20px;
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.btn-login-header:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-register-header {
+    background: linear-gradient(135deg, #FF6B00, #FF4500);
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-register-header:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.4);
+}
+
+.work-time {
+    color: rgb(200, 200, 200);
+    font-size: 14px;
+}
+
+.exchange-main-section {
+    padding: 60px 0;
+}
+
+.exchange-info {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.exchange-info h2 {
+    font-size: 32px;
+    color: rgb(243, 243, 243);
+    margin-bottom: 15px;
+}
+
+.exchange-conditions {
+    font-size: 16px;
+    color: rgb(200, 200, 200);
+}
+
+.main-exchange-form {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: rgba(18, 18, 18, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.exchange-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.exchange-column h3 {
+    color: rgb(243, 243, 243);
+    font-size: 20px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(255, 107, 0, 0.3);
+}
+
+.form-agreement {
+    margin: 30px 0 20px;
+    padding: 20px;
+    background-color: rgba(30, 30, 30, 0.5);
+    border-radius: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: rgb(200, 200, 200);
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.btn-submit-exchange {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #FF6B00, #FF8C00, #FFA500, #FFD700);
+    background-size: 300% 300%;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Rubik', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s;
+    animation: gradientShift 3s ease infinite;
+}
+
+.btn-submit-exchange:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 140, 0, 0.6);
+}
+
+@media (max-width: 768px) {
+    .exchange-columns {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .main-exchange-form {
+        padding: 25px;
+    }
+}
+
 .btn-login {
     background-color: transparent;
     color: rgb(255, 255, 255);

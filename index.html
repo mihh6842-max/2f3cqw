@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация - EXMO Маркетплейс</title>
+    <title>Обменник EXMO кодов - Продать код за рубли</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,40 +14,230 @@
         <source src="19264a464315513c06c2dc242649e340.mp4" type="video/mp4">
     </video>
 
-    <div class="auth-page">
-        <div class="auth-container">
-            <h2>Регистрация</h2>
-            <form id="registerForm" class="auth-form-page">
-                <div class="form-group-auth">
-                    <label>Номер телефона *</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+    <header>
+        <div class="user-bar">
+            <div class="container">
+                <div class="user-bar-content">
+                    <div class="language-selector">
+                        <span class="active">РУ</span> / <span>EN</span>
+                    </div>
+                    <div class="header-contacts-top">
+                        <span>📱 Поддержка: <a href="https://t.me/yourusername" target="_blank">@yourusername</a></span>
+                        <span>📧 Email: support@example.com</span>
+                    </div>
+                    <div class="auth-buttons-header">
+                        <button class="btn-login-header" onclick="window.location.href='login.html'">Войти</button>
+                        <button class="btn-register-header" onclick="window.location.href='register.html'">Регистрация</button>
+                    </div>
                 </div>
-
-                <div class="form-group-auth">
-                    <label>Email *</label>
-                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
-                </div>
-
-                <div class="form-group-auth">
-                    <label>Пароль *</label>
-                    <input type="password" id="password" name="password" placeholder="Минимум 6 символов" required>
-                </div>
-
-                <div class="form-group-auth">
-                    <label>Подтверждение пароля *</label>
-                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Повторите пароль" required>
-                </div>
-
-                <button type="submit" class="btn-submit-auth">Зарегистрироваться</button>
-
-                <div class="auth-links center">
-                    <a href="login.html">Уже есть аккаунт? Войти</a>
-                </div>
-            </form>
-
-            <div id="message" class="message" style="display:none;"></div>
+            </div>
         </div>
-    </div>
+        <div class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <h1>EXMO ОБМЕННИК</h1>
+                    </div>
+                    <nav>
+                        <a href="index.html">Главная</a>
+                        <a href="#reviews">Отзывы</a>
+                        <a href="#howto">Как это работает</a>
+                        <a href="#contacts">Контакты</a>
+                    </nav>
+                    <div class="work-time">
+                        <span>⏰ Работаем: 10:00 - 22:00 МСК</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="exchange-main-section">
+            <div class="container">
+                <div class="exchange-info">
+                    <h2>Продать EXMO код за рубли</h2>
+                    <p class="exchange-conditions">Курс обмена 1:1 без комиссии. Оплата через СБП. Время обработки: 10-30 минут</p>
+                </div>
+
+                <form id="exchangeForm" class="main-exchange-form">
+                    <div class="exchange-columns">
+                        <div class="exchange-column">
+                            <h3>Вы продаете</h3>
+
+                            <div class="form-group">
+                                <label>EXMO код *</label>
+                                <input type="text" id="exmoCode" name="exmoCode" required
+                                       placeholder="Вставьте ваш EXMO код">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Сумма в рублях *</label>
+                                <input type="number" id="amount" name="amount" required
+                                       placeholder="Укажите сумму в EXMO коде" min="100">
+                                <small>Минимум: 100 ₽</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label>ID на бирже EXMO *</label>
+                                <input type="text" id="exmoId" name="exmoId" required
+                                       placeholder="Ваш ID на бирже EXMO">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Скриншот личного кабинета EXMO *</label>
+                                <input type="file" id="screenshot" name="screenshot" required
+                                       accept="image/*">
+                                <small>Загрузите скриншот с видимым EXMO кодом и вашим ID</small>
+                            </div>
+                        </div>
+
+                        <div class="exchange-column">
+                            <h3>Вы получаете</h3>
+
+                            <div class="form-group">
+                                <label>Номер телефона (СБП) *</label>
+                                <input type="tel" id="phone" name="phone" required
+                                       placeholder="+7 (___) ___-__-__">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Банк *</label>
+                                <select id="bank" name="bank" required>
+                                    <option value="">Выберите банк</option>
+                                    <option value="Сбербанк">Сбербанк</option>
+                                    <option value="Тинькофф">Тинькофф</option>
+                                    <option value="ВТБ">ВТБ</option>
+                                    <option value="Альфа-Банк">Альфа-Банк</option>
+                                    <option value="Райффайзен">Райффайзен</option>
+                                    <option value="Газпромбанк">Газпромбанк</option>
+                                    <option value="Открытие">Открытие</option>
+                                    <option value="Росбанк">Росбанк</option>
+                                    <option value="Другой">Другой</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Telegram для связи</label>
+                                <input type="text" id="telegram" name="telegram"
+                                       placeholder="@ваш_username">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email (опционально)</label>
+                                <input type="email" id="email" name="email"
+                                       placeholder="your@email.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-agreement">
+                        <label class="checkbox-label">
+                            <input type="checkbox" required>
+                            <span>Я согласен с условиями обмена и политикой конфиденциальности</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit-exchange">Создать заявку на обмен</button>
+                </form>
+
+                <div id="successMessage" class="message success" style="display:none;">
+                    ✓ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.
+                </div>
+                <div id="errorMessage" class="message error" style="display:none;">
+                    ✗ Ошибка отправки. Попробуйте еще раз или свяжитесь с нами в Telegram.
+                </div>
+            </div>
+        </section>
+
+        <section id="howto" class="info-section">
+            <div class="container">
+                <h2>Как это работает?</h2>
+                <div class="info-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Создайте EXMO код</h3>
+                        <p>Зайдите в свой аккаунт на бирже EXMO и создайте код на нужную сумму</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Заполните форму</h3>
+                        <p>Укажите EXMO код, сумму, данные для СБП и загрузите скриншот</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Дождитесь проверки</h3>
+                        <p>Мы проверим ваш код и свяжемся с вами в течение 10-30 минут</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Получите деньги</h3>
+                        <p>После проверки кода мы переведем деньги на ваш счет через СБП</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews" class="reviews-section">
+            <div class="container">
+                <h2>Отзывы клиентов</h2>
+                <div class="reviews-container">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span class="review-author">Алексей М.</span>
+                            <span class="review-date">05.01.2026</span>
+                        </div>
+                        <div class="review-rating">★★★★★</div>
+                        <p class="review-text">Быстро и надежно! Деньги пришли через 10 минут после проверки кода.</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span class="review-author">Мария К.</span>
+                            <span class="review-date">03.01.2026</span>
+                        </div>
+                        <div class="review-rating">★★★★★</div>
+                        <p class="review-text">Отличный сервис, курс 1:1 без комиссий. Рекомендую!</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span class="review-author">Дмитрий П.</span>
+                            <span class="review-date">28.12.2025</span>
+                        </div>
+                        <div class="review-rating">★★★★★</div>
+                        <p class="review-text">Уже третий раз обмениваю коды здесь. Всё честно и прозрачно.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacts">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p>📱 Telegram: <a href="https://t.me/yourusername" target="_blank">@yourusername</a></p>
+                    <p>📧 Email: support@example.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Режим работы</h3>
+                    <p>Ежедневно: 10:00 - 22:00 (МСК)</p>
+                    <p>Обработка заявок: 10-30 минут</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Информация</h3>
+                    <p>Курс обмена: 1:1</p>
+                    <p>Комиссия: 0%</p>
+                    <p>Способ оплаты: СБП</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EXMO Обменник. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const phoneInput = document.getElementById('phone');
@@ -65,70 +255,40 @@
             e.target.value = formatted;
         });
 
-        // Создаем тестовый аккаунт admin@admin.com / admin если его нет
-        if (!localStorage.getItem('users')) {
-            const users = [{
-                phone: '+7 (000) 000-00-00',
-                email: 'admin@admin.com',
-                password: 'admin',
-                id: 1
-            }];
-            localStorage.setItem('users', JSON.stringify(users));
-        }
-
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
+        document.getElementById('exchangeForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm_password').value;
-            const message = document.getElementById('message');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
 
-            if (password !== confirmPassword) {
-                message.textContent = 'Пароли не совпадают!';
-                message.className = 'message error';
-                message.style.display = 'block';
-                return;
-            }
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
 
-            if (password.length < 6) {
-                message.textContent = 'Пароль должен содержать минимум 6 символов!';
-                message.className = 'message error';
-                message.style.display = 'block';
-                return;
-            }
+            // Сохраняем заявку в LocalStorage
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
 
-            // Получаем существующих пользователей
-            let users = JSON.parse(localStorage.getItem('users') || '[]');
-
-            // Проверка на существующего пользователя
-            const exists = users.find(u => u.email === email || u.phone === phone);
-            if (exists) {
-                message.textContent = 'Пользователь с таким email или телефоном уже существует!';
-                message.className = 'message error';
-                message.style.display = 'block';
-                return;
-            }
-
-            // Создаем нового пользователя
-            const newUser = {
-                id: users.length + 1,
-                phone: phone,
-                email: email,
-                password: password
+            const newOrder = {
+                id: orders.length + 1,
+                exmoCode: document.getElementById('exmoCode').value,
+                amount: document.getElementById('amount').value,
+                exmoId: document.getElementById('exmoId').value,
+                phone: document.getElementById('phone').value,
+                bank: document.getElementById('bank').value,
+                telegram: document.getElementById('telegram').value,
+                email: document.getElementById('email').value,
+                status: 'pending',
+                createdAt: new Date().toISOString()
             };
 
-            users.push(newUser);
-            localStorage.setItem('users', JSON.stringify(users));
+            orders.push(newOrder);
+            localStorage.setItem('orders', JSON.stringify(orders));
 
-            message.textContent = 'Регистрация успешна! Перенаправление...';
-            message.className = 'message success';
-            message.style.display = 'block';
+            successMessage.style.display = 'block';
+            this.reset();
 
             setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 1500);
+                successMessage.style.display = 'none';
+            }, 5000);
         });
     </script>
 </body>

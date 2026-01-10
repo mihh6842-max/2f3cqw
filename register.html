@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - EXMO Обменник</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <video autoplay muted loop playsinline class="video-background">
+        <source src="19264a464315513c06c2dc242649e340.mp4" type="video/mp4">
+    </video>
+
+    <div class="auth-page">
+        <div class="auth-container">
+            <h2>Регистрация</h2>
+            <p style="text-align: center; color: rgb(180,180,180); margin-bottom: 20px;">Регистрация не обязательна для совершения обмена</p>
+            <form id="registerForm" class="auth-form-page">
+                <div class="form-group-auth">
+                    <label>Номер телефона *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+                </div>
+
+                <div class="form-group-auth">
+                    <label>Email *</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                </div>
+
+                <div class="form-group-auth">
+                    <label>Пароль *</label>
+                    <input type="password" id="password" name="password" placeholder="Минимум 6 символов" required>
+                </div>
+
+                <div class="form-group-auth">
+                    <label>Подтверждение пароля *</label>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Повторите пароль" required>
+                </div>
+
+                <button type="submit" class="btn-submit-auth">Зарегистрироваться</button>
+
+                <div class="auth-links center">
+                    <a href="login.html">Уже есть аккаунт? Войти</a> |
+                    <a href="index.html">Вернуться на главную</a>
+                </div>
+            </form>
+
+            <div id="message" class="message" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                if (value[0] === '8') value = '7' + value.substring(1);
+                if (value[0] !== '7') value = '7' + value;
+            }
+            let formatted = '+7';
+            if (value.length > 1) formatted += ' (' + value.substring(1, 4);
+            if (value.length >= 5) formatted += ') ' + value.substring(4, 7);
+            if (value.length >= 8) formatted += '-' + value.substring(7, 9);
+            if (value.length >= 10) formatted += '-' + value.substring(9, 11);
+            e.target.value = formatted;
+        });
+
+        // Создаем тестовый аккаунт admin@admin.com / admin если его нет
+        if (!localStorage.getItem('users')) {
+            const users = [{
+                phone: '+7 (000) 000-00-00',
+                email: 'admin@admin.com',
+                password: 'admin',
+                id: 1
+            }];
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            const message = document.getElementById('message');
+
+            if (password !== confirmPassword) {
+                message.textContent = 'Пароли не совпадают!';
+                message.className = 'message error';
+                message.style.display = 'block';
+                return;
+            }
+
+            if (password.length < 6) {
+                message.textContent = 'Пароль должен содержать минимум 6 символов!';
+                message.className = 'message error';
+                message.style.display = 'block';
+                return;
+            }
+
+            // Получаем существующих пользователей
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+
+            // Проверка на существующего пользователя
+            const exists = users.find(u => u.email === email || u.phone === phone);
+            if (exists) {
+                message.textContent = 'Пользователь с таким email или телефоном уже существует!';
+                message.className = 'message error';
+                message.style.display = 'block';
+                return;
+            }
+
+            // Создаем нового пользователя
+            const newUser = {
+                id: users.length + 1,
+                phone: phone,
+                email: email,
+                password: password
+            };
+
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            message.textContent = 'Регистрация успешна! Перенаправление...';
+            message.className = 'message success';
+            message.style.display = 'block';
+
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
