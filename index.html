@@ -68,51 +68,79 @@
                 <form id="exchangeForm" class="main-exchange-form">
                     <div class="exchange-columns">
                         <div class="exchange-column">
-                            <div class="form-group">
+                            <div class="form-group" data-mode="sell">
                                 <label>💳 Gift Card (EXMO код) *</label>
-                                <input type="text" id="exmoCode" name="exmoCode" required
+                                <input type="text" id="exmoCode" name="exmoCode"
                                        placeholder="Вставьте код, созданный в личном кабинете EXMO">
                                 <small>min: 1 000 RUB | max: 100 000 RUB</small>
                             </div>
 
                             <div class="form-group">
-                                <label>💰 Сумма *</label>
+                                <label id="amountLabel">💰 Сумма *</label>
                                 <input type="number" id="giveAmount" name="giveAmount" required
                                        placeholder="Укажите сумму" min="1000" max="100000" step="1">
                                 <small>min: 1 000 RUB | max: 100 000 RUB</small>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" data-mode="sell">
                                 <label>📎 Файл подтверждения *</label>
-                                <input type="file" id="screenshot" name="screenshot" required
+                                <input type="file" id="screenshot" name="screenshot"
                                        accept="image/*">
                                 <small>Скриншот с видимым EXMO кодом</small>
+                            </div>
+
+                            <div class="form-group" data-mode="buy" style="display: none;">
+                                <label>👤 Ф.И.О. плательщика *</label>
+                                <input type="text" id="fullNameBuy" name="fullNameBuy"
+                                       placeholder="Иванов Иван Иванович">
+                            </div>
+
+                            <div class="form-group" data-mode="buy" style="display: none;">
+                                <label>📱 Номер телефона (СБП) *</label>
+                                <input type="tel" id="phoneBuy" name="phoneBuy"
+                                       placeholder="+7 (___) ___-__-__">
+                            </div>
+
+                            <div class="form-group" data-mode="buy" style="display: none;">
+                                <label>🏦 Название банка *</label>
+                                <select id="bankBuy" name="bankBuy">
+                                    <option value="">Выберите банк</option>
+                                    <option value="Сбербанк">Сбербанк</option>
+                                    <option value="Тинькофф">Тинькофф</option>
+                                    <option value="ВТБ">ВТБ</option>
+                                    <option value="Альфа-Банк">Альфа-Банк</option>
+                                    <option value="Райффайзен">Райффайзен</option>
+                                    <option value="Газпромбанк">Газпромбанк</option>
+                                    <option value="Открытие">Открытие</option>
+                                    <option value="Росбанк">Росбанк</option>
+                                    <option value="Другой">Другой</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="exchange-column">
                             <div class="form-group">
-                                <label>💵 Сумма к получению</label>
+                                <label id="receiveLabel">💵 Сумма к получению</label>
                                 <input type="number" id="receiveAmount" name="receiveAmount" readonly
                                        placeholder="0" class="amount-display">
-                                <small>Курс обмена 1:1 • Оплата через СБП</small>
+                                <small id="receiveSmall">Курс обмена 1:1 • Оплата через СБП</small>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" data-mode="sell">
                                 <label>👤 Ф.И.О. получателя *</label>
-                                <input type="text" id="fullName" name="fullName" required
+                                <input type="text" id="fullName" name="fullName"
                                        placeholder="Иванов Иван Иванович">
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" data-mode="sell">
                                 <label>📱 Номер телефона (СБП) *</label>
-                                <input type="tel" id="phone" name="phone" required
+                                <input type="tel" id="phone" name="phone"
                                        placeholder="+7 (___) ___-__-__">
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" data-mode="sell">
                                 <label>🏦 Название банка *</label>
-                                <select id="bank" name="bank" required>
+                                <select id="bank" name="bank">
                                     <option value="">Выберите банк</option>
                                     <option value="Сбербанк">Сбербанк</option>
                                     <option value="Тинькофф">Тинькофф</option>
@@ -239,16 +267,49 @@
     <script>
         // Переключатель режимов
         const modeBtns = document.querySelectorAll('.mode-btn');
+        let currentMode = 'sell';
+
         modeBtns.forEach(btn => {
             btn.addEventListener('click', function() {
                 modeBtns.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
 
-                const mode = this.dataset.mode;
-                // Здесь можно добавить логику переключения режимов
-                console.log('Выбран режим:', mode);
+                currentMode = this.dataset.mode;
+                switchMode(currentMode);
             });
         });
+
+        function switchMode(mode) {
+            // Скрываем/показываем поля в зависимости от режима
+            document.querySelectorAll('[data-mode]').forEach(field => {
+                if (field.dataset.mode === mode) {
+                    field.style.display = 'block';
+                    // Добавляем required для видимых полей
+                    const input = field.querySelector('input, select');
+                    if (input && !input.readOnly) input.required = true;
+                } else {
+                    field.style.display = 'none';
+                    // Убираем required для скрытых полей
+                    const input = field.querySelector('input, select');
+                    if (input) input.required = false;
+                }
+            });
+
+            // Меняем текст лейблов
+            const amountLabel = document.getElementById('amountLabel');
+            const receiveLabel = document.getElementById('receiveLabel');
+            const receiveSmall = document.getElementById('receiveSmall');
+
+            if (mode === 'buy') {
+                amountLabel.textContent = '💰 Сумма оплаты *';
+                receiveLabel.textContent = '💳 EXMO код на сумму';
+                receiveSmall.textContent = 'Курс обмена 1:1 • Получите EXMO код';
+            } else {
+                amountLabel.textContent = '💰 Сумма *';
+                receiveLabel.textContent = '💵 Сумма к получению';
+                receiveSmall.textContent = 'Курс обмена 1:1 • Оплата через СБП';
+            }
+        }
 
         // Автоматический расчёт суммы получения (курс 1:1)
         const giveAmountInput = document.getElementById('giveAmount');
@@ -260,8 +321,7 @@
         });
 
         // Форматирование телефона
-        const phoneInput = document.getElementById('phone');
-        phoneInput.addEventListener('input', function(e) {
+        function formatPhone(e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 0) {
                 if (value[0] === '8') value = '7' + value.substring(1);
@@ -273,7 +333,12 @@
             if (value.length >= 8) formatted += '-' + value.substring(7, 9);
             if (value.length >= 10) formatted += '-' + value.substring(9, 11);
             e.target.value = formatted;
-        });
+        }
+
+        const phoneInput = document.getElementById('phone');
+        const phoneBuyInput = document.getElementById('phoneBuy');
+        phoneInput.addEventListener('input', formatPhone);
+        phoneBuyInput.addEventListener('input', formatPhone);
 
         // Отправка формы
         document.getElementById('exchangeForm').addEventListener('submit', function(e) {
@@ -296,17 +361,35 @@
             // Сохраняем заявку в LocalStorage
             const orders = JSON.parse(localStorage.getItem('orders') || '[]');
 
-            const newOrder = {
-                id: orders.length + 1,
-                exmoCode: document.getElementById('exmoCode').value,
-                giveAmount: giveAmount,
-                receiveAmount: giveAmount, // Курс 1:1
-                fullName: document.getElementById('fullName').value,
-                phone: document.getElementById('phone').value,
-                bank: document.getElementById('bank').value,
-                status: 'pending',
-                createdAt: new Date().toISOString()
-            };
+            let newOrder;
+            if (currentMode === 'sell') {
+                // Режим продажи EXMO кода
+                newOrder = {
+                    id: orders.length + 1,
+                    type: 'sell',
+                    exmoCode: document.getElementById('exmoCode').value,
+                    giveAmount: giveAmount,
+                    receiveAmount: giveAmount,
+                    fullName: document.getElementById('fullName').value,
+                    phone: document.getElementById('phone').value,
+                    bank: document.getElementById('bank').value,
+                    status: 'pending',
+                    createdAt: new Date().toISOString()
+                };
+            } else {
+                // Режим покупки EXMO кода
+                newOrder = {
+                    id: orders.length + 1,
+                    type: 'buy',
+                    giveAmount: giveAmount,
+                    receiveAmount: giveAmount,
+                    fullName: document.getElementById('fullNameBuy').value,
+                    phone: document.getElementById('phoneBuy').value,
+                    bank: document.getElementById('bankBuy').value,
+                    status: 'pending',
+                    createdAt: new Date().toISOString()
+                };
+            }
 
             orders.push(newOrder);
             localStorage.setItem('orders', JSON.stringify(orders));
