@@ -280,6 +280,15 @@
         });
 
         function switchMode(mode) {
+            const exchangeColumns = document.querySelector('.exchange-columns');
+
+            // Переключаем одноколоночный/двухколоночный режим
+            if (mode === 'buy') {
+                exchangeColumns.classList.add('single-column');
+            } else {
+                exchangeColumns.classList.remove('single-column');
+            }
+
             // Скрываем/показываем поля в зависимости от режима
             document.querySelectorAll('[data-mode]').forEach(field => {
                 if (field.dataset.mode === mode) {
