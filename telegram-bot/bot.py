@@ -341,20 +341,20 @@ def run_flask():
     """Запуск Flask в отдельном потоке"""
     app = create_flask_app()
     if app:
-        print("🌐 API сервер запущен на http://localhost:5000")
+        print("[API] Server running on http://localhost:5000")
         app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)
 
 def main():
     """Основной цикл бота"""
-    print("🤖 Bot starting...")
+    print("[BOT] Starting...")
 
     # Запускаем Flask API в отдельном потоке
     if FLASK_AVAILABLE:
         flask_thread = threading.Thread(target=run_flask, daemon=True)
         flask_thread.start()
-        print("✅ API сервер запущен в фоне")
+        print("[OK] API server started on port 5000")
     else:
-        print("⚠️ API сервер не запущен (Flask не установлен)")
+        print("[WARN] API server not started (Flask not installed)")
 
     offset = None
 
@@ -362,12 +362,12 @@ def main():
     response = requests.get(f"{API_URL}/getMe")
     if response.json().get('ok'):
         bot_info = response.json()['result']
-        print(f"✅ Telegram бот: @{bot_info['username']}")
+        print(f"[OK] Telegram bot: @{bot_info['username']}")
     else:
-        print("❌ Ошибка подключения к Telegram API")
+        print("[ERROR] Failed to connect to Telegram API")
         return
 
-    print("🚀 Бот запущен и готов к работе!")
+    print("[OK] Bot is running!")
     print("=" * 40)
 
     while True:
@@ -387,7 +387,7 @@ def main():
             time.sleep(1)
 
         except KeyboardInterrupt:
-            print("\n🛑 Бот остановлен")
+            print("\n[STOP] Bot stopped")
             break
         except Exception as e:
             print(f"Error: {e}")
