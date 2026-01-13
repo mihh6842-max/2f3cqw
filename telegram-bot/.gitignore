@@ -1,0 +1,21 @@
+# Конфигурация с токенами
+config.py
+
+# База данных
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+
+# Логи
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
