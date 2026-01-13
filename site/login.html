@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход - EXMO Маркетплейс</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <video autoplay muted loop playsinline class="video-background">
+        <source src="19264a464315513c06c2dc242649e340.mp4" type="video/mp4">
+    </video>
+
+    <div class="auth-page">
+        <div class="auth-container">
+            <h2>Вход</h2>
+            <form id="loginForm" class="auth-form-page">
+                <div class="form-group-auth">
+                    <label>Email</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                </div>
+
+                <div class="form-group-auth">
+                    <label>Пароль</label>
+                    <input type="password" id="password" name="password" placeholder="Ваш пароль" required>
+                </div>
+
+                <button type="submit" class="btn-submit-auth">Войти</button>
+
+                <div class="auth-links center">
+                    <a href="register.html">Нет аккаунта? Регистрация</a>
+                </div>
+            </form>
+
+            <div id="message" class="message" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const message = document.getElementById('message');
+
+            // Получаем пользователей из LocalStorage
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+            // Ищем пользователя
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (!user) {
+                message.textContent = 'Неверный email или пароль!';
+                message.className = 'message error';
+                message.style.display = 'block';
+                return;
+            }
+
+            // Сохраняем текущего пользователя
+            sessionStorage.setItem('currentUser', JSON.stringify(user));
+
+            message.textContent = 'Вход выполнен! Перенаправление...';
+            message.className = 'message success';
+            message.style.display = 'block';
+
+            setTimeout(() => {
+                window.location.href = 'shop.html';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

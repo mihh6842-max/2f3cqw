@@ -3,7 +3,7 @@ import json
 import time
 import os
 from datetime import datetime
-from config import BOT_TOKEN, ADMIN_ID, DB_PATH
+from config import BOT_TOKEN, ADMIN_IDS, DB_PATH
 
 API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}"
 

