@@ -2,8 +2,18 @@ import requests
 import json
 import time
 import os
+import threading
 from datetime import datetime
 from config import BOT_TOKEN, ADMIN_IDS, DB_PATH
+
+# Flask API сервер
+try:
+    from flask import Flask, request, jsonify
+    from flask_cors import CORS
+    FLASK_AVAILABLE = True
+except ImportError:
+    FLASK_AVAILABLE = False
+    print("Flask not installed. Run: pip install flask flask-cors")
 
 API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}"
 
@@ -274,19 +284,91 @@ def handle_callback(callback_query):
             buttons = [[{'text': '🔙 Назад к списку', 'callback_data': 'back_orders'}]]
             send_keyboard(chat_id, msg, buttons)
 
+def create_flask_app():
+    """Создание Flask приложения"""
+    if not FLASK_AVAILABLE:
+        return None
+
+    app = Flask(__name__)
+    CORS(app)
+
+    @app.route('/api/order', methods=['POST'])
+    def create_order():
+        try:
+            data = request.json
+            orders = load_orders()
+            new_id = max([o.get('id', 0) for o in orders], default=0) + 1
+
+            order = {
+                'id': new_id,
+                'type': 'sell',
+                'exmoCode': data.get('exmoCode', ''),
+                'giveAmount': data.get('giveAmount', 0),
+                'receiveAmount': data.get('receiveAmount', 0),
+                'fullName': data.get('fullName', ''),
+                'phone': data.get('phone', ''),
+                'bank': data.get('bank', ''),
+                'status': 'pending',
+                'createdAt': datetime.now().isoformat()
+            }
+
+            orders.append(order)
+            save_order(order)
+
+            # Уведомляем админов
+            msg = (f"📋 <b>Новая заявка #{order['id']}</b>\n\n"
+                   f"💳 <code>{order['exmoCode']}</code>\n"
+                   f"💰 {order['giveAmount']} руб.\n\n"
+                   f"👤 <code>{order['fullName']}</code>\n"
+                   f"📱 <code>{order['phone']}</code>\n"
+                   f"🏦 <code>{order['bank']}</code>")
+
+            for admin_id in ADMIN_IDS:
+                send_message(admin_id, msg)
+
+            return jsonify({'success': True, 'id': new_id})
+        except Exception as e:
+            return jsonify({'success': False, 'error': str(e)}), 500
+
+    @app.route('/api/orders', methods=['GET'])
+    def get_orders():
+        orders = load_orders()
+        return jsonify({'orders': list(reversed(orders)), 'total': len(orders)})
+
+    return app
+
+def run_flask():
+    """Запуск Flask в отдельном потоке"""
+    app = create_flask_app()
+    if app:
+        print("🌐 API сервер запущен на http://localhost:5000")
+        app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)
+
 def main():
     """Основной цикл бота"""
-    print("Bot started...")
+    print("🤖 Bot starting...")
+
+    # Запускаем Flask API в отдельном потоке
+    if FLASK_AVAILABLE:
+        flask_thread = threading.Thread(target=run_flask, daemon=True)
+        flask_thread.start()
+        print("✅ API сервер запущен в фоне")
+    else:
+        print("⚠️ API сервер не запущен (Flask не установлен)")
+
     offset = None
 
     # Проверка токена
     response = requests.get(f"{API_URL}/getMe")
     if response.json().get('ok'):
         bot_info = response.json()['result']
-        print(f"Connected as: @{bot_info['username']}")
+        print(f"✅ Telegram бот: @{bot_info['username']}")
     else:
-        print("Error connecting to Telegram API")
+        print("❌ Ошибка подключения к Telegram API")
         return
+
+    print("🚀 Бот запущен и готов к работе!")
+    print("=" * 40)
 
     while True:
         try:
@@ -305,7 +387,7 @@ def main():
             time.sleep(1)
 
         except KeyboardInterrupt:
-            print("\nBot stopped")
+            print("\n🛑 Бот остановлен")
             break
         except Exception as e:
             print(f"Error: {e}")
