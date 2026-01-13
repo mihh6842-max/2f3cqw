@@ -121,16 +121,29 @@ def handle_message(message):
         )
         send_message(chat_id, response)
 
-    elif text == '/orders':
+    elif text == '/orders' or text.startswith('/orders_'):
+        # Пагинация
+        page = 1
+        if text.startswith('/orders_'):
+            page = int(text.split('_')[1])
+
         orders = load_orders()
         if not orders:
             send_message(chat_id, "📭 Заявок пока нет")
         else:
-            # Создаем кнопки для каждой заявки
-            buttons = []
-            msg = f"📋 <b>Заявки ({len(orders)} шт.)</b>\n\n"
+            per_page = 5
+            total = len(orders)
+            pages = (total + per_page - 1) // per_page
+            orders_rev = list(reversed(orders))  # Новые сверху
 
-            for order in orders[-10:]:  # Последние 10
+            start = (page - 1) * per_page
+            end = start + per_page
+            page_orders = orders_rev[start:end]
+
+            buttons = []
+            msg = f"📋 <b>Заявки</b> (стр. {page}/{pages}, всего: {total})\n\n"
+
+            for order in page_orders:
                 status_icon = {
                     'pending': '🟡',
                     'processing': '🔵',
@@ -138,13 +151,21 @@ def handle_message(message):
                     'rejected': '🔴'
                 }.get(order.get('status', 'pending'), '⚪')
 
-                msg += f"{status_icon} #{order['id']} - {order['fullName'][:20]} - {order['giveAmount']} ₽\n"
+                msg += f"{status_icon} #{order['id']} - {order['fullName'][:15]} - {order['giveAmount']} ₽\n"
 
-                # Кнопка для просмотра заявки
                 buttons.append([{
-                    'text': f"📄 Заявка #{order['id']}",
+                    'text': f"📄 #{order['id']} {order['fullName'][:12]}",
                     'callback_data': f"view_{order['id']}"
                 }])
+
+            # Кнопки навигации
+            nav_buttons = []
+            if page > 1:
+                nav_buttons.append({'text': '⬅️ Назад', 'callback_data': f'page_{page-1}'})
+            if page < pages:
+                nav_buttons.append({'text': 'Вперёд ➡️', 'callback_data': f'page_{page+1}'})
+            if nav_buttons:
+                buttons.append(nav_buttons)
 
             send_keyboard(chat_id, msg, buttons)
 
@@ -182,13 +203,26 @@ def handle_callback(callback_query):
         else:
             answer_callback(callback_id, 'Заявка не найдена')
 
-    elif data == 'back_orders':
-        # Возвращаемся к списку
-        orders = load_orders()
-        buttons = []
-        msg = f"📋 <b>Заявки ({len(orders)} шт.)</b>\n\n"
+    elif data == 'back_orders' or data.startswith('page_'):
+        # Пагинация
+        page = 1
+        if data.startswith('page_'):
+            page = int(data.split('_')[1])
 
-        for order in orders[-10:]:
+        orders = load_orders()
+        per_page = 5
+        total = len(orders)
+        pages = (total + per_page - 1) // per_page
+        orders_rev = list(reversed(orders))
+
+        start = (page - 1) * per_page
+        end = start + per_page
+        page_orders = orders_rev[start:end]
+
+        buttons = []
+        msg = f"📋 <b>Заявки</b> (стр. {page}/{pages}, всего: {total})\n\n"
+
+        for order in page_orders:
             status_icon = {
                 'pending': '🟡',
                 'processing': '🔵',
@@ -196,12 +230,21 @@ def handle_callback(callback_query):
                 'rejected': '🔴'
             }.get(order.get('status', 'pending'), '⚪')
 
-            msg += f"{status_icon} #{order['id']} - {order['fullName'][:20]} - {order['giveAmount']} ₽\n"
+            msg += f"{status_icon} #{order['id']} - {order['fullName'][:15]} - {order['giveAmount']} ₽\n"
 
             buttons.append([{
-                'text': f"📄 Заявка #{order['id']}",
+                'text': f"📄 #{order['id']} {order['fullName'][:12]}",
                 'callback_data': f"view_{order['id']}"
             }])
+
+        # Кнопки навигации
+        nav_buttons = []
+        if page > 1:
+            nav_buttons.append({'text': '⬅️ Назад', 'callback_data': f'page_{page-1}'})
+        if page < pages:
+            nav_buttons.append({'text': 'Вперёд ➡️', 'callback_data': f'page_{page+1}'})
+        if nav_buttons:
+            buttons.append(nav_buttons)
 
         send_keyboard(chat_id, msg, buttons)
         answer_callback(callback_id, '✓')

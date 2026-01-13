@@ -117,9 +117,10 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="btn-submit-exchange">Создать заявку</button>
+                    <button type="submit" id="submitBtn" class="btn-submit-exchange btn-disabled">Создать заявку</button>
                 </form>
 
+                <div id="validationMessage" class="message warning" style="display:none;"></div>
                 <div id="successMessage" class="message success" style="display:none;">
                     ✓ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.
                 </div>
@@ -184,11 +185,81 @@
         const phoneInput = document.getElementById('phone');
         phoneInput.addEventListener('input', formatPhone);
 
-        // Отправка в Telegram с фото
-        async function sendToTelegram(order, screenshotFile) {
+        // Валидация формы
+        const submitBtn = document.getElementById('submitBtn');
+        const validationMsg = document.getElementById('validationMessage');
+        const form = document.getElementById('sellForm');
+
+        function validateForm() {
+            const errors = [];
+            const exmoCode = document.getElementById('exmoCode').value.trim();
+            const giveAmount = parseFloat(document.getElementById('giveAmount').value) || 0;
+            const screenshot = document.getElementById('screenshot').files[0];
+            const fullName = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const bank = document.getElementById('bank').value.trim();
+            const checkbox = form.querySelector('input[type="checkbox"]').checked;
+
+            if (!exmoCode) errors.push('Введите EXMO код');
+            if (giveAmount < 1000) errors.push('Сумма минимум 1000 ₽');
+            if (giveAmount > 100000) errors.push('Сумма максимум 100000 ₽');
+            if (!screenshot) errors.push('Загрузите скриншот');
+            if (!fullName) errors.push('Введите ФИО');
+            if (phone.length < 18) errors.push('Введите номер телефона');
+            if (!bank) errors.push('Введите название банка');
+            if (!checkbox) errors.push('Примите условия');
+
+            return errors;
+        }
+
+        function updateButtonState() {
+            const errors = validateForm();
+            if (errors.length === 0) {
+                submitBtn.classList.remove('btn-disabled');
+            } else {
+                submitBtn.classList.add('btn-disabled');
+            }
+        }
+
+        // Слушаем изменения всех полей
+        form.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', updateButtonState);
+            input.addEventListener('change', updateButtonState);
+        });
+
+        // При клике на неактивную кнопку показываем ошибки
+        submitBtn.addEventListener('click', function(e) {
+            const errors = validateForm();
+            if (errors.length > 0) {
+                e.preventDefault();
+                validationMsg.innerHTML = '⚠️ ' + errors.join('<br>⚠️ ');
+                validationMsg.style.display = 'block';
+                setTimeout(() => { validationMsg.style.display = 'none'; }, 5000);
+            }
+        });
+
+        // Отправка заявки на сервер и в Telegram
+        async function sendOrder(order, screenshotFile) {
             const BOT_TOKEN = '8378403510:AAHdYIpQ2hRJ8H0va6kM-ZSfoYwVeosuQVA';
             const ADMIN_IDS = ['7338817463', '7816621862'];
+            const API_URL = 'http://localhost:5000/api/order';
 
+            // Пробуем отправить на API сервер (сохранит в БД)
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(order)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    console.log('Saved to server, ID:', data.id);
+                }
+            } catch (e) {
+                console.log('API offline, sending directly to Telegram');
+            }
+
+            // Всегда отправляем в Telegram
             const message =
                 `📋 <b>Новая заявка</b>\n\n` +
                 `💳 <code>${order.exmoCode}</code>\n` +
@@ -200,7 +271,6 @@
             for (const chatId of ADMIN_IDS) {
                 try {
                     if (screenshotFile) {
-                        // Сначала отправляем фото
                         const formData = new FormData();
                         formData.append('chat_id', chatId);
                         formData.append('photo', screenshotFile);
@@ -212,7 +282,6 @@
                             body: formData
                         });
                     } else {
-                        // Без фото - только текст
                         await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -270,8 +339,8 @@
             const screenshotInput = document.getElementById('screenshot');
             const screenshotFile = screenshotInput.files[0] || null;
 
-            // Отправляем в Telegram с фото
-            sendToTelegram(newOrder, screenshotFile);
+            // Отправляем заявку
+            sendOrder(newOrder, screenshotFile);
 
             successMessage.style.display = 'block';
             this.reset();
